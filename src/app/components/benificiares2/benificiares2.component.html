@@ -11,28 +11,40 @@
    -->
    <div class="d-flex justify-content-end mb-2">
     <button  class="btn btn-success" (click)="checrher()"> <i class="fa fa-search"></i></button>&nbsp;
-    <input type="text" placeholder="Designation" [(ngModel)]="designation" style="text-align:right;">&nbsp;
+    <input type="text" placeholder="إسم الموقع" [(ngModel)]="designation" style="text-align:right;">&nbsp;
+<div class="ml-auto"> 
 
-    <select class="form-control-md" name="district" *ngIf="districts" [(ngModel)]="selectedDistrict" (ngModelChange)="onRowClickDistrict($event)"> 
-      <option value="0">-</option>
-      <option *ngFor="let district of districts"  [value]="district.id">{{district.designation}}</option>
-    </select> &nbsp;
-    <select class="form-control-md" name="annexe" *ngIf="annexes" [(ngModel)]="selectedAnnexe" (ngModelChange)="onRowClickAnnexe($event)"> 
-      <option value="undefined">-</option>
-      <option *ngFor="let district of annexes"  [value]="district.id">{{district.designation}}</option>
-    </select>&nbsp;
-    <select class="form-control-md" name="categorie" *ngIf="categories" [(ngModel)]="selectedCategorie" (ngModelChange)="onRowClickCategorie($event)"> 
-      <option value="0">-</option>
-      <option *ngFor="let categorie of categories"  [value]="categorie.id">{{categorie.designation}}</option>
-    </select>
+
+
+  <select class="form-control-md"  name="categorie" *ngIf="categories" [(ngModel)]="selectedCategorie" (ngModelChange)="onRowClickCategorie($event)"> 
+  <option value="0">-</option>
+  <option *ngFor="let categorie of categories"  [value]="categorie.id">{{categorie.designation}}</option>
+</select>
+
+&nbsp;
+<select class="form-control-md" name="annexe" *ngIf="annexes" [(ngModel)]="selectedAnnexe" (ngModelChange)="onRowClickAnnexe($event)"> 
+  <option value="0">-</option>
+  <option *ngFor="let district of annexes"  [value]="district.id">{{district.designation}}</option>
+</select>
+
+&nbsp;
+<select class="form-control-md" name="district" *ngIf="districts" [(ngModel)]="selectedDistrict" (ngModelChange)="onRowClickDistrict($event)"> 
+  <option value="0">-</option>
+  <option *ngFor="let district of districts"  [value]="district.id">{{district.designation}}</option>
+</select>
+
+
+</div>
+   
     <button class="btn btn-primary ml-auto" (click)="addResource()">إضافة موقع <i class="fa fa-plus-circle"></i>
     </button>&nbsp;
-    <button  class="btn btn-success" (click)="oupload()">تحميل <i class="fa fa-print"></i></button>
+    <!-- <button  class="btn btn-success" (click)="oupload()">تحميل <i class="fa fa-print"></i></button> -->
     <!-- <label  class="control-label" style="display: block;text-align: right;">
       : * الدائرة 
   </label> -->
 
   </div>
+  <div class="table-container">
     <table class="table table-bordered table-sm">
         <thead>
         <tr>
@@ -62,7 +74,7 @@
               <button  class="btn btn-danger" (click)="onDeleteResource(p.id)">حذف <i class="fa fa-remove"></i></button>
               
             </td>
-            <td>({{p.x}},{{p.x}})</td>
+            <td>({{p.x}},{{p.y}})</td>
             <td>{{p.observations}}</td>
             <td>{{p.contact}}</td>
             <td>{{p.superficie}}</td>
@@ -71,7 +83,7 @@
             <td>{{p.adress}}</td>
             <td>{{p.categorie.designation}}</td>
             <td>{{p.designation}}</td>
-            <td>{{p.identifiant}}</td>
+            <td>{{p.id}}</td>
          
        
          
@@ -85,6 +97,7 @@
         </tr>
       </tbody>
     </table>
+  </div>
     <div id="map" ></div>
 </div>
 

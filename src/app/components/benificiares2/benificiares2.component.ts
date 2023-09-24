@@ -10,7 +10,7 @@ import * as L from 'leaflet';
 })
 export class Benificiares2Component implements OnInit {
   designation
-selectedAnnexe =undefined
+selectedAnnexe =0
 annexes
 categories
 districts
@@ -76,39 +76,39 @@ getDistricts(){
 
 })
 }
-onRowClickAnnexe(e){
-  this.selectedAnnexe = e
-  if((this.selectedCategorie==undefined || this.selectedCategorie==0) &&(this.selectedAnnexe==undefined||this.selectedAnnexe==0)){
-this.onRowClickDistrict(this.selectedDistrict)
+onRowClickAnnexe(e) {
+  this.selectedAnnexe = e;
+  
+  // Convert 0 to undefined
+  let a,c,d;
+  // Convert 0 to undefined
+ a= this.selectedAnnexe == 0 ? undefined : this.selectedAnnexe;
+  c= this.selectedCategorie == 0 ? undefined : this.selectedCategorie;
+ d = this.selectedDistrict == 0 ? undefined : this.selectedDistrict;
 
-  }else if((this.selectedCategorie==undefined || this.selectedCategorie==0)&&this.selectedAnnexe){
-    this.rnpService.getOneResource(this.rnpService.host+"/endroits/search/findByAnnexeId?id="+this.selectedAnnexe).subscribe(data=>{
-      this.benificiaires = data['_embedded'].endroits
-      this.designation=""
-      this.marq(this.benificiaires)
+  let url = `${this.rnpService.host}/endroits/search/findByDistrictAndAnnexeAndCategorieId?`;
   
-       })
-  }else if(this.selectedCategorie&&(this.selectedAnnexe==undefined||this.selectedAnnexe==0)){
-    this.rnpService.getOneResource(this.rnpService.host+"/endroits/search/findByCategorieId?id="+this.selectedCategorie).subscribe(data=>{
-      this.benificiaires = data['_embedded'].endroits
-      this.designation=""
-      this.marq(this.benificiaires)
-  
-       })
+  if (d !== undefined) {
+    url += `districtId=${d}&`;
   }
-  else{
-    if (this.selectedAnnexe !== undefined && this.selectedCategorie !== undefined) {
-    this.rnpService.getOneResource(this.rnpService.host+"/endroits/search/findByAnnexeAndCategorie?annexeId="+this.selectedAnnexe+"&categorieId="+this.selectedCategorie).subscribe(data=>{
-      this.benificiaires = data['_embedded'].endroits
-      this.marq(this.benificiaires)
-  console.log(this.benificiaires,"33333333")
-       })
+
+  if (a !== undefined) {
+    url += `annexeId=${a}&`;
   }
+
+  if (c !== undefined) {
+    url += `categorieId=${c}`;
+  }
+
+  this.rnpService.getOneResource(url).subscribe(data => {
+    this.benificiaires = data['_embedded'].endroits;
+    this.designation="";
+    this.marq(this.benificiaires);
+  });
 }
- 
-}
+
 onRowClickDistrict(e){
-  this.selectedAnnexe = undefined
+  this.selectedAnnexe = 0
   this.selectedCategorie = 0
 this.selectedDistrict = e 
 if(this.selectedDistrict!=0){
@@ -128,42 +128,40 @@ if(this.selectedDistrict!=0){
   this.getReources()
 
 }
+ //Convert 0 to undefined
+ 
 }
 onRowClickCategorie(e){
  
   this.selectedCategorie = e
-  if((this.selectedCategorie==undefined || this.selectedCategorie==0) &&(this.selectedAnnexe==undefined||this.selectedAnnexe==0)){
-    this.onRowClickDistrict(this.selectedDistrict)
-    console.log("double 0")
-  }else if((this.selectedCategorie==undefined || this.selectedCategorie==0)&&this.selectedAnnexe){
-    this.rnpService.getOneResource(this.rnpService.host+"/endroits/search/findByAnnexeId?id="+this.selectedAnnexe).subscribe(data=>{
-      this.benificiaires = data['_embedded'].endroits
-      console.log("fhis")
-      this.designation=""
-      this.marq(this.benificiaires)
-     
-       })
-  }else if(this.selectedCategorie&&(this.selectedAnnexe==undefined||this.selectedAnnexe==0)){
-    this.designation=""
-    this.rnpService.getOneResource(this.rnpService.host+"/endroits/search/findByCategorieId?id="+this.selectedCategorie).subscribe(data=>{
-      this.benificiaires = data['_embedded'].endroits
-      this.marq(this.benificiaires)
-  console.log("this")
+  let a,c,d;
+  // Convert 0 to undefined
+ a= this.selectedAnnexe == 0 ? undefined : this.selectedAnnexe;
+  c= this.selectedCategorie == 0 ? undefined : this.selectedCategorie;
+ d = this.selectedDistrict == 0 ? undefined : this.selectedDistrict;
+
+  let url = `${this.rnpService.host}/endroits/search/findByDistrictAndAnnexeAndCategorieId?`;
   
-       })
+  if (d !== undefined) {
+    url += `districtId=${d}&`;
   }
-  else{
-    if (this.selectedAnnexe !== undefined && this.selectedCategorie !== undefined) {
-    this.rnpService.getOneResource(this.rnpService.host+"/endroits/search/findByAnnexeAndCategorie?annexeId="+this.selectedAnnexe+"&categorieId="+this.selectedCategorie).subscribe(data=>{
-      this.benificiaires = data['_embedded'].endroits
-      this.marq(this.benificiaires)
-  
-  console.log(this.benificiaires,"33333333")
-       })
+
+  if (a !== undefined) {
+    url += `annexeId=${a}&`;
   }
+
+  if (c !== undefined) {
+    url += `categorieId=${c}`;
+  }
+
+  this.rnpService.getOneResource(url).subscribe(data => {
+    this.benificiaires = data['_embedded'].endroits;
+    this.designation="";
+    this.marq(this.benificiaires);
+  });
 }
- 
-}
+
+
 checrher(){
   
   if(this.designation){
@@ -173,6 +171,7 @@ checrher(){
   this.rnpService.getResourceAll2('endroits/search/findByDesignationIgnoreCase?designation='+this.designation).subscribe(data=>{
     console.log('endroits/search/findByDesignationIgnoreCase?designation='+this.designation)
     this.benificiaires = data['_embedded'].endroits
+    this.marq(this.benificiaires);
 
 })
   }else{

@@ -4,5 +4,10 @@ tr,th,td{
 
   
   #map {
-    height: 460px;
+    height: 710px;
   }
+  .table-container {
+    max-height: 500px; /* Set a fixed height for the container */
+    overflow-y: auto; /* Enable vertical scrollbar */
+    margin-bottom: 30px;
+}

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, groupBy, mergeMap, toArray } from 'rxjs';
 import { saveAs } from 'file-saver';
@@ -72,6 +72,18 @@ getOneResource(url:string):Observable<any>{ if(this.jwtToken ==null)
  this.loadToken()
 return this.http.get<any>(url)
 }
+getOneResource3(url: string, params: any): Observable<any> {
+  this.loadToken()
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    params: new HttpParams({ fromObject: params }) // Convert params to HttpParams
+  };
+
+  return this.http.get(url, httpOptions);
+}
+
+
+
 getOneResourceById(resource:string,id:number):Observable<any>{ if(this.jwtToken ==null)
  this.loadToken()
  return this.http.get<any>(`${this.host}/${resource}/${id}`)

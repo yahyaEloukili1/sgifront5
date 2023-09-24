@@ -36,6 +36,11 @@ this.pdiService.getResourceAll('districts').subscribe(data=>{
   console.log(this.annexes)
 
 })
+  }  onRowClickDistrict(e){
+    this.pdiService.getOneResource(this.pdiService.host+"/annexes/search/findByDistrictId?id="+e).subscribe(data=>{
+      this.annexes = data['_embedded'].annexes
+     
+    })
   }
   onSaveAffectation(f:NgForm){
     this.ajoute = false
@@ -59,35 +64,53 @@ this.pdiService.getResourceAll('districts').subscribe(data=>{
           f.value.annexe = `${this.pdiService.host}/annexes/${f.value.annexe}`
           console.log(f.value.annexeName,"jej")
           console.log(f.value.districtName,"jej")
-       if(!f.value.designation){
- alert(' المرجو ادخال المعلومات'  )
-       }
-       if(!f.value.identifiant){
- alert(' المرجو ادخال المعلومات'  )
-       }
-       if(!f.value.adress){
- alert(' المرجو ادخال المعلومات'  )
-       }
-       if(f.value.district ==  `${this.pdiService.host}/districts/`){
- alert(' المرجو ادخال المعلومات'  )
-       }
-       if(f.value.categorie ==  `${this.pdiService.host}/categories/`){
- alert(' المرجو ادخال المعلومات'  )
-       }
-       if(f.value.annexe ==  `${this.pdiService.host}/annexes/`){
- alert(' المرجو ادخال المعلومات'  )
-       }
-      
+//        if(!f.value.designation){
+//  alert(' المرجو ادخال المعلومات'  )
+//        }
+    
+//        if(!f.value.adress){
+//  alert(' المرجو ادخال المعلومات'  )
+//        }
+//        if(!f.value.x){
+//         alert(' المرجو ادخال المعلومات'  )
+//               }
+//               if(!f.value.y){
+//                 alert(' المرجو ادخال المعلومات'  )
+//                       }
+                    
+//        if(f.value.district ==  `${this.pdiService.host}/districts/`){
+//  alert(' المرجو ادخال المعلومات'  )
+//        }
+//        if(f.value.categorie ==  `${this.pdiService.host}/categories/`){
+//  alert(' المرجو ادخال المعلومات'  )
+//        }
+//        if(f.value.annexe ==  `${this.pdiService.host}/annexes/`){
+//  alert(' المرجو ادخال المعلومات'  )
+//        }
+if (
+  !f.value.designation ||
+  !f.value.adress ||
+  !f.value.x ||
+  !f.value.y ||
+  f.value.district === `${this.pdiService.host}/districts/` ||
+  f.value.categorie === `${this.pdiService.host}/categories/` ||
+  f.value.annexe === `${this.pdiService.host}/annexes/`
+) {
+  alert(' المرجو ادخال المعلومات' );
+}
+
       
        else{
-        console.log(f.value,'xxxx')
-      
+       if(f.value.x && f.value.y && f.value.adress && f.value.designation ){
         this.pdiService.addResource("endroits",f.value).subscribe(data=>{
-         this.ajoute =true
-          f.reset()
-              },err=>{
-                console.log(err)
-              })
+          this.ajoute =true
+           f.reset()
+               },err=>{
+                 console.log(err)
+               })
+       }
+      
+      
 
               // this.pdiService.addResource("benificiaireArchives",f.value).subscribe(data=>{
               //   this.ajoute =true
