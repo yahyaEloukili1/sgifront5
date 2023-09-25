@@ -168,7 +168,7 @@ checrher(){
     this.selectedAnnexe=0 
     this.selectedCategorie=0
     this.selectedDistrict = 0
-  this.rnpService.getResourceAll2('endroits/search/findByDesignationIgnoreCase?designation='+this.designation).subscribe(data=>{
+  this.rnpService.getResourceAll2('endroits/search/findByDesignationContainsIgnoreCase?designation='+this.designation).subscribe(data=>{
     console.log('endroits/search/findByDesignationIgnoreCase?designation='+this.designation)
     this.benificiaires = data['_embedded'].endroits
     this.marq(this.benificiaires);
@@ -193,29 +193,46 @@ getReources(){
        })
     };
       var marker = L.marker([element.x, element.y],icon).addTo(this.map);
+      marker.bindPopup(`<b>الموقع : ${element.designation}  </b><br><b>${element.adress}</b><br><b>الملحقة : ${element.annexe.designation}</b>`);
+
+
+      marker.on('mouseover', function (e) {
+          marker.openPopup();
+      });
+      marker.on('mouseout', function (e) {
+        marker.closePopup();
+      });
     });
 
 })
 }
-marq(data){
+
+ marq(data) {
   this.map.eachLayer(layer => {
     if (layer instanceof L.Marker) {
-      this.map.removeLayer(layer)
-      console.log("layer")
+      this.map.removeLayer(layer);
     }
   });
   data.forEach(element => {
-    console.log(element,"yyyy")
-let icon = {
+    let icon = {
       icon: L.icon({
-        iconSize: [ 25, 41 ],
-        iconAnchor: [ 13, 0 ],
-        // specify the path here
+        iconSize: [25, 41],
+        iconAnchor: [13, 0],
         iconUrl: 'marker-icon.png',
         shadowUrl: 'marker-shadow.png'
-     })
-  };
-    var marker = L.marker([element.x, element.y],icon).addTo(this.map);
+      })
+    };
+    var marker = L.marker([element.x, element.y], icon).addTo(this.map);
+    marker.bindPopup(`<b>الموقع : ${element.designation}  </b><br><b>${element.adress}</b><br><b>الملحقة : ${element.annexe.designation}</b>`);
+
+
+    marker.on('mouseover', function (e) {
+        marker.openPopup();
+    });
+    marker.on('mouseout', function (e) {
+      marker.closePopup();
+    });
+ 
   });
 }
 
