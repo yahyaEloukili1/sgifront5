@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MyServiceService } from 'src/app/services/my-service.service';
+
+       
 import * as L from 'leaflet';
 
 @Component({
@@ -103,7 +105,7 @@ onRowClickAnnexe(e) {
   this.rnpService.getOneResource(url).subscribe(data => {
     this.benificiaires = data['_embedded'].endroits;
     this.designation="";
-    this.marq(this.benificiaires);
+    this.marq2(this.benificiaires);
   });
 }
 
@@ -118,7 +120,7 @@ if(this.selectedDistrict!=0){
   })
   this.rnpService.getOneResource(this.rnpService.host+"/endroits/search/findByDistrictId?id="+this.selectedDistrict).subscribe(data=>{
     this.benificiaires = data['_embedded'].endroits
-    this.marq(this.benificiaires)
+    this.marq2(this.benificiaires)
     console.log("fhis")
     this.designation=""
      })
@@ -157,7 +159,7 @@ onRowClickCategorie(e){
   this.rnpService.getOneResource(url).subscribe(data => {
     this.benificiaires = data['_embedded'].endroits;
     this.designation="";
-    this.marq(this.benificiaires);
+    this.marq2(this.benificiaires);
   });
 }
 
@@ -171,7 +173,7 @@ checrher(){
   this.rnpService.getResourceAll2('endroits/search/findByDesignationContainsIgnoreCase?designation='+this.designation).subscribe(data=>{
     console.log('endroits/search/findByDesignationIgnoreCase?designation='+this.designation)
     this.benificiaires = data['_embedded'].endroits
-    this.marq(this.benificiaires);
+    this.marq2(this.benificiaires);
 
 })
   }else{
@@ -182,60 +184,57 @@ checrher(){
 getReources(){
   this.rnpService.getResourceAll2('endroits2').subscribe(data=>{
     this.benificiaires = data
-    data.forEach(element => {
-     let icon = {
-        icon: L.icon({
-          iconSize: [ 25, 41 ],
-          iconAnchor: [ 13, 0 ],
-          // specify the path here
-          iconUrl: 'marker-icon.png',
-          shadowUrl: 'marker-shadow.png'
-       })
-    };
-      var marker = L.marker([element.x, element.y],icon).addTo(this.map);
-      marker.bindPopup(`<b>الموقع : ${element.designation}  </b><br><b>${element.adress}</b><br><b>الملحقة : ${element.annexe.designation}</b>`);
-
-
-      marker.on('mouseover', function (e) {
-          marker.openPopup();
-      });
-      marker.on('mouseout', function (e) {
-        marker.closePopup();
-      });
-    });
+    
+ this.marq(data)
 
 })
 }
-
- marq(data) {
+removeLayer(){
   this.map.eachLayer(layer => {
     if (layer instanceof L.Marker) {
       this.map.removeLayer(layer);
     }
   });
-  data.forEach(element => {
-    let icon = {
-      icon: L.icon({
-        iconSize: [25, 41],
-        iconAnchor: [13, 0],
-        iconUrl: 'marker-icon.png',
-        shadowUrl: 'marker-shadow.png'
-      })
-    };
-    var marker = L.marker([element.x, element.y], icon).addTo(this.map);
-    marker.bindPopup(`<b>الموقع : ${element.designation}  </b><br><b>${element.adress}</b><br><b>الملحقة : ${element.annexe.designation}</b>`);
-
-
-    marker.on('mouseover', function (e) {
-        marker.openPopup();
-    });
-    marker.on('mouseout', function (e) {
-      marker.closePopup();
-    });
- 
-  });
+}
+marq2(data){
+  this.removeLayer()
+  this.marq(data)
+}
+mouseAction(marker){
+  marker.on('mouseover', function (e) {
+    marker.openPopup();
+});
+marker.on('mouseout', function (e) {
+  marker.closePopup();
+});
+}
+ createMarker(element, iconUrl,width,height) {
+  let icon = {
+    icon: L.icon({
+      iconSize: [width,height],
+      iconAnchor: [13, 0],
+      iconUrl: iconUrl
+    })
+  };
+  var marker = L.marker([element.x, element.y], icon).addTo(this.map);
+  this.mouseAction(marker);
+  marker.bindPopup(`<b>الموقع : ${element.designation}  </b><br><b>${element.adress}</b><br><b>الملحقة : ${element.annexe.designation}</b>`);
 }
 
+ marq(data) {
+  data.forEach(element => {
+    if (element.categorie.id == 1) {
+      this.createMarker.call(this, element, 'marker-icon.png',25,40);
+    } else if (element.categorie.id == 2) {
+      this.createMarker.call(this, element, 'https://bodylab.ch/wp-content/uploads/2015/11/map-marker-icon.png',35,40);
+    } else if (element.categorie.id == 3) {
+      this.createMarker.call(this, element, 'https://cdn.pixabay.com/photo/2013/07/13/10/29/icon-157354_640.png',25,40);
+    } 
+    else if (element.categorie.id == 4) {
+      this.createMarker.call(this, element, 'https://cdn3.iconfinder.com/data/icons/flat-pro-basic-set-1-1/32/location-green-512.png',35,43);
+    } 
+  });
+}
 
 addResource(){
     this.router.navigateByUrl("iftar/addBenificiare")
