@@ -52,7 +52,7 @@ this.initMap()
 
 }
 oupload(){
-  this.rnpService.uploadFileArchive('pdf')
+  this.rnpService.uploadFile1('pdf')
   
 }
 getAnnexes(){
@@ -218,7 +218,7 @@ marker.on('mouseout', function (e) {
   };
   var marker = L.marker([element.x, element.y], icon).addTo(this.map);
   this.mouseAction(marker);
-  marker.bindPopup(`<b>الموقع : ${element.designation}  </b><br><b>${element.adress}</b><br><b>الملحقة : ${element.annexe.designation}</b>`);
+  marker.bindPopup(`<b>اسم الموقع : ${element.designation}  </b><br><b>${element.adress}</b><br><b>الملحقة : ${element.annexe.designation}</b>`);
 }
 
  marq(data) {
