@@ -52,6 +52,7 @@ this.pdiService.getResourceAll('districts').subscribe(data=>{
 
         this.pdiService.getOneResourceById("categories",f.value.categorie).subscribe(data=>{
           f.value.categorieName = data.designation
+       
 
 
 

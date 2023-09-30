@@ -120,6 +120,18 @@ uploadFile1(format: string) {
     saveAs(blob, `report.${format}`); // download the blob as a file
   });
 }
+
+uploadFileWithData( data: any) {
+  const url = `${this.host}/report4/`;
+  
+  // Send a POST request with data in the request body
+  return this.http.post(url, data, {
+    responseType: 'blob'
+  }).subscribe((blob: Blob) => {
+    saveAs(blob, `report.pdf`);
+  });
+}
+
 uploadFileArchive(format: string) {
   const url = `${this.host}/reportArchive/${format}`;
   return this.http.get(url, {

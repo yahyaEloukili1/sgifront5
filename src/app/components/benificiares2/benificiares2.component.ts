@@ -52,7 +52,7 @@ this.initMap()
 
 }
 oupload(){
-  this.rnpService.uploadFile1('pdf')
+  this.rnpService.uploadFileWithData(this.benificiaires)
   
 }
 getAnnexes(){

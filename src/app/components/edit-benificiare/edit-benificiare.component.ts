@@ -113,53 +113,54 @@ export class EditBenificiareComponent implements OnInit {
 }
 onRowClicCategorie(e){
   this.selectedCategorie = e
-  console.log(e,"zzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
+  console.log(e,"mmmmmmmmmmmmmm")
 }
 onRowClicDistrict(e){
   this.selectedDistrict = e
   console.log(e,"zzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
 }
-     onUpdateResource(value: any){
-      console.log(value.district,"aaaaaaaaaaaaaaaaaaaaaa")
-      if(this.selectedDistrict){
-        value.district = `${this.myService.host}/districts/${this.selectedDistrict}`
-        this.myService.getOneResourceById("districts",this.selectedDistrict).subscribe(data=>{
-          value.districtName = data.designation
-        })
-  
-      }else{
-        value.district = `${this.myService.host}/districts/${this.district}`
-      }
+async onUpdateResource(value: any) {
+  console.log(value.district, "aaaaaaaaaaaaaaaaaaaaaa");
 
-      if(this.selectedAnnexe){
-        value.annexe = `${this.myService.host}/annexes/${this.selectedAnnexe}`
-        this.myService.getOneResourceById("annexes",this.selectedAnnexe).subscribe(data=>{
-          console.log(data.designation,"777777777777777777777")
-          value.annexeName = data.designation
-          // this.myService.updateResource(`${this.myService.host}/annexes/${this.selectedAnnexe}`,)
-        })
-      }else{
-        value.annexe = `${this.myService.host}/annexes/${this.annexe}`
-      }
+  if (this.selectedDistrict) {
+    value.district = `${this.myService.host}/districts/${this.selectedDistrict}`;
+    const data = await this.myService.getOneResourceById("districts", this.selectedDistrict).toPromise();
+    value.districtName = data.designation;
+  } else {
+    value.district = `${this.myService.host}/districts/${this.district}`;
+  }
+
+  if (this.selectedAnnexe) {
+    value.annexe = `${this.myService.host}/annexes/${this.selectedAnnexe}`;
+    const data = await this.myService.getOneResourceById("annexes", this.selectedAnnexe).toPromise();
+    value.annexeName = data.designation;
+    // this.myService.updateResource(`${this.myService.host}/annexes/${this.selectedAnnexe}`,)
+  } else {
+    value.annexe = `${this.myService.host}/annexes/${this.annexe}`;
+  }
+
+  console.log(value.annexeName, "aaaaaaaaaaaaaaaaaaaaaaa");
+
+  if (this.selectedCategorie) {
+    value.categorie = `${this.myService.host}/categories/${this.selectedCategorie}`;
+    const data = await this.myService.getOneResourceById("categories", this.selectedCategorie).toPromise();
+    value.categorieName = data.designation;
+    console.log(value.categorieName, "dddddddddddddddddd");
+  } else {
+    value.categorie = `${this.myService.host}/categories/${this.categorie}`;
+  }
+
+  console.log(value.categorieName, "dddddddddddddddddd");
+
+  this.myService.updateResource(this.url, value).subscribe(data => {
+    console.log(data['districtName'], "vvvvvvvvvvvvvvvvvvvvvvvv");
+    alert("Mise a jour effectuée avec succès");
+  }, err => {
+    console.log(err, "errrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+  });
+}
 
 
-      if(this.selectedCategorie){
-        value.categorie = `${this.myService.host}/categories/${this.selectedCategorie}`
-        this.myService.getOneResourceById("categories",this.selectedCategorie).subscribe(data=>{
-          value.categorieName = data.designation
-        })
-        
-      }else{
-        value.categorie = `${this.myService.host}/categories/${this.categorie}`
-      }
-
-       this.myService.updateResource(this.url,value).subscribe(data=>{
-        console.log(data,"vvvvvvvvvvvvvvvvvvvvvvvv")
-         alert("Mise a jour effectuée avec succès")
-       },err=>{
-         console.log(err,"errrrrrrrrrrrrrrrrrrrrrrrrrrrr")
-       })
-     }
      gotoList(){
        this.router.navigateByUrl('iftar/benificiaires2');
      }
