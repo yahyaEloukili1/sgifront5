@@ -121,16 +121,34 @@ uploadFile1(format: string) {
   });
 }
 
-uploadFileWithData( data: any) {
-  const url = `${this.host}/report4/`;
+// uploadFileWithData( data: any) {
+//   const url = `${this.host}/report4/`;
   
+//   // Send a POST request with data in the request body
+//   return this.http.post(url, data, {
+//     responseType: 'blob'
+//   }).subscribe((blob: Blob) => {
+//     saveAs(blob, `report.pdf`);
+//   });
+// }
+
+uploadFileWithData(reportTitle: string, data: any) {
+  const url = `${this.host}/report4`;
+
+  const body = {
+    reportTitle: reportTitle,
+    data: JSON.stringify(data) // Convert data to a JSON string
+  };
+
   // Send a POST request with data in the request body
-  return this.http.post(url, data, {
+  return this.http.post(url, body, {
     responseType: 'blob'
   }).subscribe((blob: Blob) => {
     saveAs(blob, `report.pdf`);
   });
 }
+
+
 
 uploadFileArchive(format: string) {
   const url = `${this.host}/reportArchive/${format}`;

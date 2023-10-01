@@ -51,9 +51,61 @@ this.initMap()
 
 
 }
-oupload(){
-  this.rnpService.uploadFileWithData(this.benificiaires)
-  
+async oupload(){
+  if((!this.selectedAnnexe|| this.selectedAnnexe==0) && (!this.selectedCategorie|| this.selectedCategorie==0)&&(!this.selectedDistrict|| this.selectedDistrict==0))
+  {this.rnpService.uploadFileWithData("لائحة المواقع",this.benificiaires)}
+  else if((this.selectedAnnexe && this.selectedAnnexe!==0)&& (!this.selectedCategorie|| this.selectedCategorie==0)&&(!this.selectedDistrict|| this.selectedDistrict==0)) {
+    {
+      
+
+      const annexeData = await this.rnpService.getOneResourceById("annexes", this.selectedAnnexe).toPromise();
+      this.rnpService.uploadFileWithData(`مواقع الملحقة الإدارية ${annexeData.designation}`,this.benificiaires)
+    }
+  }
+  else if((this.selectedCategorie && this.selectedCategorie!==0)&& (!this.selectedAnnexe|| this.selectedAnnexe==0)&&(!this.selectedDistrict|| this.selectedDistrict==0)) {
+    {
+     
+      const categorieData = await this.rnpService.getOneResourceById("categories", this.selectedCategorie).toPromise();
+      this.rnpService.uploadFileWithData(`مواقع فئة ${categorieData.designation}`,this.benificiaires)
+    }
+  }
+  else if((this.selectedDistrict && this.selectedDistrict!==0)&& (!this.selectedCategorie|| this.selectedCategorie==0)&&(!this.selectedAnnexe|| this.selectedAnnexe==0)) {
+    {
+      const districtData = await this.rnpService.getOneResourceById("districts", this.selectedDistrict).toPromise();
+      this.rnpService.uploadFileWithData(`مواقع دائرة ${districtData.designation}`,this.benificiaires)
+    }
+  }
+  else if((this.selectedAnnexe && this.selectedAnnexe!==0)&& (this.selectedCategorie&& this.selectedCategorie!=0)&&(!this.selectedDistrict|| this.selectedDistrict==0)) {
+    {
+      // this.rnpService.uploadFileWithData("selectedAnnexe && selectedcategorie",this.benificiaires)
+      const annexeData = await this.rnpService.getOneResourceById("annexes", this.selectedAnnexe).toPromise();
+      const categorieData = await this.rnpService.getOneResourceById("categories", this.selectedCategorie).toPromise();
+      this.rnpService.uploadFileWithData(`مواقع فئة ${categorieData.designation} وملحقة ${annexeData.designation}`,this.benificiaires)
+   
+    }
+  }
+  else if((this.selectedAnnexe && this.selectedAnnexe!==0)&& (this.selectedDistrict&& this.selectedDistrict!=0)&&(!this.selectedCategorie|| this.selectedCategorie==0)) {
+    {
+      const annexeData = await this.rnpService.getOneResourceById("annexes", this.selectedAnnexe).toPromise();
+      const districtData = await this.rnpService.getOneResourceById("districts", this.selectedDistrict).toPromise();
+      this.rnpService.uploadFileWithData(` مواقع دائرة ${districtData.designation}  وملحقة ${annexeData.designation}`,this.benificiaires)
+    }
+  }
+  else if((this.selectedDistrict && this.selectedDistrict!==0)&& (this.selectedCategorie&& this.selectedCategorie!=0)&&(!this.selectedAnnexe|| this.selectedAnnexe==0)) {
+    {
+      const categorieData = await this.rnpService.getOneResourceById("categories", this.selectedCategorie).toPromise();
+      const districtData = await this.rnpService.getOneResourceById("districts", this.selectedDistrict).toPromise();
+      this.rnpService.uploadFileWithData(` مواقع دائرة ${districtData.designation}  وفئة ${categorieData.designation}`,this.benificiaires)
+    }
+  }
+  else if((this.selectedAnnexe&& this.selectedAnnexe!==0) && (this.selectedCategorie|| this.selectedCategorie!==0)&&(this.selectedDistrict|| this.selectedDistrict!==0))
+  {
+    const categorieData = await this.rnpService.getOneResourceById("categories", this.selectedCategorie).toPromise();
+      const districtData = await this.rnpService.getOneResourceById("districts", this.selectedDistrict).toPromise();
+      const annexeData = await this.rnpService.getOneResourceById("annexes", this.selectedAnnexe).toPromise();
+      this.rnpService.uploadFileWithData(` مواقع دائرة ${districtData.designation}  وملحقة ${annexeData.designation} وفئة ${categorieData.designation}`,this.benificiaires)
+  }
+ 
 }
 getAnnexes(){
   this.rnpService.getResourceAll('annexes').subscribe(data=>{
