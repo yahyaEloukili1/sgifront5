@@ -30,7 +30,7 @@ export class TokenInterceptorService implements HttpInterceptor {
           err=>{
             if(err.status===403){
               pdiService.logout()
-              this.router.navigateByUrl('/iftar/login')
+              this.router.navigateByUrl('/sgi/login')
             }
           }
         )

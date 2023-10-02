@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
       return true
     }
     else{
-      this.router.navigateByUrl('iftar/login')
+      this.router.navigateByUrl('sgi/login')
       return false
     }
   }

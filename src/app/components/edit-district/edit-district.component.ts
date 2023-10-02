@@ -31,7 +31,7 @@ currentResource
    })
  }
  gotoList(){
-   this.router.navigateByUrl('iftar/districts');
+   this.router.navigateByUrl('sgi/districts');
  }
 
 }

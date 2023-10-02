@@ -162,7 +162,7 @@ async onUpdateResource(value: any) {
 
 
      gotoList(){
-       this.router.navigateByUrl('iftar/benificiaires2');
+       this.router.navigateByUrl('sgi/benificiaires2');
      }
   
   }

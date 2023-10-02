@@ -32,7 +32,7 @@ export class EditCategorieComponent implements OnInit {
      })
    }
    gotoList(){
-     this.router.navigateByUrl('iftar/categories');
+     this.router.navigateByUrl('sgi/categories');
    }
   
 

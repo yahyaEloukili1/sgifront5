@@ -69,7 +69,7 @@ console.log(value.district,"vvvvvvvvvvvvvvvvvvvvvvvv")
      })
    }
    gotoList(){
-     this.router.navigateByUrl('iftar/annexes');
+     this.router.navigateByUrl('sgi/annexes');
    }
 
 }

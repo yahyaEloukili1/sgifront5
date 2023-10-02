@@ -52,7 +52,7 @@ this.initMap()
 
 }
 async oupload(){
-  if((!this.selectedAnnexe|| this.selectedAnnexe==0) && (!this.selectedCategorie|| this.selectedCategorie==0)&&(!this.selectedDistrict|| this.selectedDistrict==0))
+  if((!this.selectedAnnexe|| this.selectedAnnexe==0) && (!this.selectedCategorie|| this.selectedCategorie==0)&&(!this.selectedDistrict|| this.selectedDistrict==0)&&!this.designation)
   {this.rnpService.uploadFileWithData("لائحة المواقع",this.benificiaires)}
   else if((this.selectedAnnexe && this.selectedAnnexe!==0)&& (!this.selectedCategorie|| this.selectedCategorie==0)&&(!this.selectedDistrict|| this.selectedDistrict==0)) {
     {
@@ -104,6 +104,12 @@ async oupload(){
       const districtData = await this.rnpService.getOneResourceById("districts", this.selectedDistrict).toPromise();
       const annexeData = await this.rnpService.getOneResourceById("annexes", this.selectedAnnexe).toPromise();
       this.rnpService.uploadFileWithData(` مواقع دائرة ${districtData.designation}  وملحقة ${annexeData.designation} وفئة ${categorieData.designation}`,this.benificiaires)
+  }
+  else if(this.designation){
+    this.rnpService.getResourceAll2('endroits/search/findByDesignationContainsIgnoreCase?designation='+this.designation).subscribe(data=>{
+      this.benificiaires = data['_embedded'].endroits
+      this.rnpService.uploadFileWithData(` مواقع بإسم ${this.designation}`,this.benificiaires)
+    })
   }
  
 }
@@ -216,16 +222,17 @@ onRowClickCategorie(e){
 }
 
 
-checrher(){
+async checrher(){
   
   if(this.designation){
     this.selectedAnnexe=0 
     this.selectedCategorie=0
     this.selectedDistrict = 0
+ 
   this.rnpService.getResourceAll2('endroits/search/findByDesignationContainsIgnoreCase?designation='+this.designation).subscribe(data=>{
-    console.log('endroits/search/findByDesignationIgnoreCase?designation='+this.designation)
     this.benificiaires = data['_embedded'].endroits
     this.marq2(this.benificiaires);
+    
 
 })
   }else{
@@ -275,21 +282,21 @@ marker.on('mouseout', function (e) {
 
  marq(data) {
   data.forEach(element => {
-    if (element.categorie.id == 1) {
-      this.createMarker.call(this, element, 'marker-icon.png',25,40);
-    } else if (element.categorie.id == 2) {
+if (element.categorie.id == 1) {
       this.createMarker.call(this, element, 'https://bodylab.ch/wp-content/uploads/2015/11/map-marker-icon.png',35,40);
-    } else if (element.categorie.id == 3) {
+    } else if (element.categorie.id == 2) {
       this.createMarker.call(this, element, 'https://cdn.pixabay.com/photo/2013/07/13/10/29/icon-157354_640.png',25,40);
     } 
-    else if (element.categorie.id == 4) {
+    else if (element.categorie.id == 3) {
       this.createMarker.call(this, element, 'https://cdn3.iconfinder.com/data/icons/flat-pro-basic-set-1-1/32/location-green-512.png',35,43);
-    } 
+    } else{
+      this.createMarker.call(this, element, 'marker-icon.png',25,40);
+    }
   });
 }
 
 addResource(){
-    this.router.navigateByUrl("iftar/addBenificiare")
+    this.router.navigateByUrl("sgi/addBenificiare")
 
 }
 onDeleteResource(id:string){
@@ -308,7 +315,7 @@ this.designation = ""
  
 }
 onEditResource(id:any){
-  this.router.navigateByUrl("/iftar/editBenificiaire/"+id)
+  this.router.navigateByUrl("/sgi/editBenificiaire/"+id)
 } 
 
 

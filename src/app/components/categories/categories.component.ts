@@ -24,7 +24,7 @@ getReources(){
 })
 }
 addResource(){
-    this.router.navigateByUrl("iftar/addCategorie")
+    this.router.navigateByUrl("sgi/addCategorie")
 
 }
 onDeleteResource(url:string){
@@ -41,6 +41,6 @@ onDeleteResource(url:string){
 onEditResource(p:any){
  
   let url = p['_links'].self.href;
-  this.router.navigateByUrl("iftar/editCategorie/"+btoa(url))
+  this.router.navigateByUrl("sgi/editCategorie/"+btoa(url))
 } 
 }

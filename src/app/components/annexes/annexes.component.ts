@@ -24,7 +24,7 @@ getReources(){
 })
 }
 addResource(){
-    this.router.navigateByUrl("iftar/addAnnexe")
+    this.router.navigateByUrl("sgi/addAnnexe")
 
 }
 onDeleteResource(id){
@@ -41,6 +41,6 @@ onDeleteResource(id){
 onEditResource(id:any){
  
 
-  this.router.navigateByUrl("iftar/editAnnexe/"+id)
+  this.router.navigateByUrl("sgi/editAnnexe/"+id)
 } 
 }

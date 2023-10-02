@@ -23,8 +23,10 @@ export class AddDistrictComponent implements OnInit {
  else{
 
   this.pdiService.addResource("districts",f.value).subscribe(data=>{
+
    this.ajoute =true
     f.reset()
+    alert('لقد تمت إضافة الدائرة بنجاح')
         },err=>{
           console.log(err)
         })
@@ -32,7 +34,7 @@ export class AddDistrictComponent implements OnInit {
  
 }
   gotoList(){
-    this.router.navigateByUrl('iftar/districts');
+    this.router.navigateByUrl('sgi/districts');
   }
   reset(f:NgForm){
 f.reset()

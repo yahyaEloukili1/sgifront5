@@ -14,14 +14,14 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.pdiService.loadToken(),"$$$$$$$$$$$")
     if(this.pdiService.jwtToken){
-      this.router.navigateByUrl("iftar/districts")
+      this.router.navigateByUrl("sgi/districts")
     }
   }
   onSubmit(f:NgForm){
       this.pdiService.login(f.value).subscribe(resp=>{
         let jwt = resp.headers.get('Authorization')
        this.pdiService.saveToken(jwt);
-        this.router.navigateByUrl("iftar/districts")
+        this.router.navigateByUrl("sgi/districts")
         console.log(jwt)
         
       },err=>{

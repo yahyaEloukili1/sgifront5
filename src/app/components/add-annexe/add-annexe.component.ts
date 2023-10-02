@@ -39,6 +39,7 @@ export class AddAnnexeComponent implements OnInit {
 
   this.pdiService.addResource("annexes",f.value).subscribe(data=>{
    this.ajoute =true
+   alert('لقد تمت إضافة الملحقة بنجاح')
     f.reset()
         },err=>{
           console.log(err)
@@ -47,7 +48,7 @@ export class AddAnnexeComponent implements OnInit {
  
 }
   gotoList(){
-    this.router.navigateByUrl('iftar/annexes');
+    this.router.navigateByUrl('sgi/annexes');
   }
   reset(f:NgForm){
 f.reset()

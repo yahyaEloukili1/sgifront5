@@ -20,19 +20,21 @@
   <option value="0">-</option>
   <option *ngFor="let categorie of categories"  [value]="categorie.id">{{categorie.designation}}</option>
 </select>
-
-&nbsp;
-<select class="form-control-md" name="annexe" *ngIf="annexes" [(ngModel)]="selectedAnnexe" (ngModelChange)="onRowClickAnnexe($event)"> 
-  <option value="0">-</option>
-  <option *ngFor="let district of annexes"  [value]="district.id">{{district.designation}}</option>
-</select>
-
-&nbsp;
+<-- الدائرة -->
 <select class="form-control-md" name="district" *ngIf="districts" [(ngModel)]="selectedDistrict" (ngModelChange)="onRowClickDistrict($event)"> 
   <option value="0">-</option>
   <option *ngFor="let district of districts"  [value]="district.id">{{district.designation}}</option>
 </select>
 
+ الملحقة -->
+ &nbsp;&nbsp;
+ <select class="form-control-md" name="annexe" *ngIf="annexes" [(ngModel)]="selectedAnnexe" (ngModelChange)="onRowClickAnnexe($event)"> 
+   <option value="0">-</option>
+   <option *ngFor="let district of annexes"  [value]="district.id">{{district.designation}}</option>
+ </select>
+ &nbsp;&nbsp;
+
+الفئة 
 
 </div>
    
@@ -48,30 +50,32 @@
     <table class="table table-bordered table-sm">
         <thead>
         <tr>
-          <th style="width: 20%;">Actions</th>
+          <th style="width: 10%;">Actions</th>
           <!-- <th style="width: 20%;">Actions</th> -->
-          <th>الاحذاثيات</th>
-          <th>ملاحضات</th>
-          <th>الهاتف</th>
-          <th>المساحة</th>
-          <th>الملحقة</th>
-          <th>الدائرة</th>
-          <th>العنوان</th>
-          <th>الفئة</th>
-          <th>الاسم</th>
-          <th>الرقم الترتيبي</th>
+          <th >الاحذاثيات</th>
+           <th >ملاحضات</th>
+           <th >الهاتف</th>
+           <th >المساحة</th>
+           <th >الملحقة</th>
+           <th >الدائرة</th>
+           <th class="address-column">العنوان</th>
+           <th >الفئة</th>
+           <th>
+            إسم الموقع
+          </th>
+           <!-- <th >الرقم الترتيبي</th>
           
           
            
-          </tr>
+          </tr> -->
          
       </thead>
       <tbody>
         <tr *ngFor="let p of benificiaires; let i = index">
             <td>
-              <button  class="btn btn-success" (click)="onEditResource(p.id)">تبديل <i class="fa fa-pencil"></i></button>
+              <button  class="btn btn-success" (click)="onEditResource(p.id)"> <i class="fa fa-pencil"></i></button>
               &nbsp;
-              <button  class="btn btn-danger" (click)="onDeleteResource(p.id)">حذف <i class="fa fa-remove"></i></button>
+              <button  class="btn btn-danger" (click)="onDeleteResource(p.id)"> <i class="fa fa-remove"></i></button>
               
             </td>
             <td>({{p.x}},{{p.y}})</td>
@@ -80,10 +84,10 @@
             <td>{{p.superficie}}</td>
             <td>{{p.annexe.designation}}</td>
             <td>{{p.district.designation}}</td>
-            <td>{{p.adress}}</td>
+            <td class="address-column ">{{p.adress}}</td>
             <td>{{p.categorie.designation}}</td>
             <td>{{p.designation}}</td>
-            <td>{{p.id}}</td>
+            <!-- <td>{{p.id}}</td> -->
          
        
          

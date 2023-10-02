@@ -36,11 +36,12 @@ this.pdiService.getResourceAll('districts').subscribe(data=>{
   console.log(this.annexes)
 
 })
-  }  onRowClickDistrict(e){
-    this.pdiService.getOneResource(this.pdiService.host+"/annexes/search/findByDistrictId?id="+e).subscribe(data=>{
-      this.annexes = data['_embedded'].annexes
+  } 
+   onRowClickDistrict(e){
+    // this.pdiService.getOneResource(this.pdiService.host+"/annexes/search/findByDistrictId?id="+e).subscribe(data=>{
+    //   this.annexes = data['_embedded'].annexes
      
-    })
+    // })
   }
   onSaveAffectation(f:NgForm){
     this.ajoute = false
@@ -105,6 +106,7 @@ if (
        if(f.value.x && f.value.y && f.value.adress && f.value.designation ){
         this.pdiService.addResource("endroits",f.value).subscribe(data=>{
           this.ajoute =true
+          alert('لقد تمت إضافة الموقع بنجاح')
            f.reset()
                },err=>{
                  console.log(err)
@@ -138,7 +140,7 @@ if (
   
 }
   gotoList(){
-    this.router.navigateByUrl('iftar/benificiaires2');
+    this.router.navigateByUrl('sgi/benificiaires2');
   }
   reset(f:NgForm){
 f.reset()

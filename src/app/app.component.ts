@@ -19,6 +19,6 @@ export class AppComponent {
   }
   logout(){
     this.pdiService.logout()
-    this.router.navigateByUrl('iftar/login')
+    this.router.navigateByUrl('sgi/login')
   }
 }

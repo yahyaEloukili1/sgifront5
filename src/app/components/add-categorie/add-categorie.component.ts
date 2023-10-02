@@ -25,6 +25,7 @@ export class AddCategorieComponent implements OnInit {
 
   this.pdiService.addResource("categories",f.value).subscribe(data=>{
    this.ajoute =true
+   alert('لقد تمت إضافة الفئة بنجاح')
     f.reset()
         },err=>{
           console.log(err)
@@ -33,7 +34,7 @@ export class AddCategorieComponent implements OnInit {
  
 }
   gotoList(){
-    this.router.navigateByUrl('iftar/categories');
+    this.router.navigateByUrl('sgi/categories');
   }
   reset(f:NgForm){
 f.reset()
