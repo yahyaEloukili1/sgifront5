@@ -1,11 +1,14 @@
 <div>
+  
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     
     <div class="container">
-      <h2 style="text-align: center;color: white;"  *ngIf="!pdiService.jwtToken">برنامج تدبير المواقع</h2>
+      <h2 style="text-align: center;color: white;margin-left: 40%;" *ngIf="!pdiService.jwtToken">برنامج تدبير المواقع</h2>
       <a class="nav-link">
         <button (click)="logout()" *ngIf="pdiService.jwtToken" class="btn btn-danger">الخروج</button>
       </a>
+   
+    
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -54,11 +57,6 @@
   
 
   
-<div class="mt-5  main-content">
-  <router-outlet> </router-outlet>
-</div>
-<!-- <div class="footer bg-dark" style=" color: white; text-align: center; margin-top: 20px; padding: 10px;">
- 
-  <p>By DSIT Laayoune - Yahya El Oukili &copy; 2023. All Rights Reserved.</p>
-
-</div> -->
+  <div class="mt-5 main-content" > <!-- Add a margin-bottom -->
+    <router-outlet> </router-outlet>
+  </div>

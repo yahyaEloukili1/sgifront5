@@ -1,5 +1,5 @@
 
-<div class="container">
+<div style="" class="container">
   <!-- <button class="btn btn-primary mb-2 ml-auto">Add </button> -->
   <!-- <div class="d-flex justify-content-end mb-2">
     <input type="text"  [(ngModel)]="cin">&nbsp;
@@ -25,9 +25,9 @@
   <option value="0">-</option>
   <option *ngFor="let district of districts"  [value]="district.id">{{district.designation}}</option>
 </select>
-
+&nbsp;&nbsp;
  الملحقة -->
- &nbsp;&nbsp;
+
  <select class="form-control-md" name="annexe" *ngIf="annexes" [(ngModel)]="selectedAnnexe" (ngModelChange)="onRowClickAnnexe($event)"> 
    <option value="0">-</option>
    <option *ngFor="let district of annexes"  [value]="district.id">{{district.designation}}</option>
@@ -108,3 +108,8 @@
 
   
 
+<div class="footer bg-dark" style="color: white; text-align: center; margin-top: 20px; padding: 10px;">
+  
+  <p>By Yahya El Oukili - DSIT Laayoune &copy; 2023. All Rights Reserved.</p>
+
+</div>
