@@ -8,20 +8,46 @@ import { MyServiceService } from 'src/app/services/my-service.service';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-
-  categories
+  size:number = 10;
+  currentPage:number = 0;
+  totalPages: number;
+  resources :any[]
+  pages : Array<number>;
+  currentKeyword: string = "";
   constructor(private rnpService: MyServiceService,private router: Router) { }
 
   ngOnInit(): void {
-   this.getReources()
-
+   this.onGetResources()
+  }
+onGetResources(){
+  this.rnpService.getResource("categories",this.currentPage,this.size).subscribe(data=>{
+   this.resources = data['_embedded'].categories;
+  this.totalPages = data['page'].totalPages;
+  this.pages = new Array<number>(this.totalPages);
+  },err=>{
+    console.log(err)
+  })
 }
-getReources(){
-  this.rnpService.getResourceAll('categories').subscribe(data=>{
-    this.categories = data['_embedded'].categories
-    console.log(this.categories)
+onPageResources(i:number){
+  this.currentPage = i;
+ this.searchResources()
+}
+onChercher(form :any){
+  this.currentPage = 0;
+  this.currentKeyword = form.keyword;
+  this.searchResources()
+}
 
-})
+searchResources(){
+
+this.rnpService.getResourceByKeyword("categories",this.currentPage,this.size,this.currentKeyword,"Categorie").subscribe(data=>{
+  this.resources = data['_embedded'].categories;
+ this.totalPages = data['page'].totalPages
+ this.pages = new Array<number>(this.totalPages);
+ },err=>{
+   console.log(err) 
+ })
+
 }
 addResource(){
     this.router.navigateByUrl("sgi/addCategorie")
@@ -30,16 +56,14 @@ addResource(){
 onDeleteResource(url:string){
   if(confirm('Etes vous sur de vouloir supprimer cette resource ?')){
   this.rnpService.deleteResource('categories',url).subscribe(data=>{
- this.getReources()
+    this.searchResources();
+    this.onGetResources()
   },err=>{
     console.log(err)
   })
   }
-   
- 
 }
 onEditResource(p:any){
- 
   let url = p['_links'].self.href;
   this.router.navigateByUrl("sgi/editCategorie/"+btoa(url))
 } 

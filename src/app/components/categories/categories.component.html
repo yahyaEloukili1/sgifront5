@@ -1,34 +1,50 @@
 <div class="container">
-    <!-- <button class="btn btn-primary mb-2 ml-auto">Add </button> -->
-    <div class="d-flex justify-content-end mb-2">
+  <!-- <button class="btn btn-primary mb-2 ml-auto">Add </button> -->
+  <div class="d-flex">
+    <div class="d-inline-block">
+      <form #f="ngForm" (ngSubmit)="onChercher(f.value)" (keydown.enter)="$event.preventDefault()">
+        <div class="form-group row">
+          <div class="col-auto"> <!-- Moved this div to the left -->
+              <button type="submit" class="btn btn-success"><i class="fa fa-search" style="font-size:17px"></i></button>
+          </div>
+          <div class="col">
+              <input type="text" class="form-control" placeholder="إسم الفئة" dir="rtl" ngModel name="keyword">
+          </div>
+      </div>
+      
+     </form>
+  </div>
+    <div class="ml-auto d-inline-block justify-content-end mb-2">
       <button class="btn btn-primary ml-auto" (click)="addResource()">إضافة فئة <i class="fa fa-plus-circle"></i>
       </button>
     </div>
-    
-      <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>Actions</th>
-              <th>الفئة</th>
-            
-             
-            </tr>
+  </div>
+
+  
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Actions</th>
+            <th>الفئة</th>
+          
            
-        </thead>
-        <tbody>
-          <tr *ngFor="let p of categories; let i = index">
-              <td><button  class="btn btn-success" (click)="onEditResource(p)">تبديل <i class="fa fa-pencil"></i></button>
-                &nbsp;
-                <button  class="btn btn-danger" (click)="onDeleteResource(p['_links'].self.href)">حذف <i class="fa fa-remove"></i></button>
-              </td>
-              <td>{{p.designation}}</td>
           </tr>
-        </tbody>
-      </table>
-  </div>
-  <div class="footer bg-dark" style="color: white; text-align: center; margin-top: 20px; padding: 10px; position: fixed; bottom: 0; width: 100%;">
-  
-    <p>By Yahya El Oukili - DSIT Laayoune &copy; 2023. All Rights Reserved.</p>
-  
-  </div>
-  
+         
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of resources; let i = index">
+            <td><button  class="btn btn-success" (click)="onEditResource(p)">تبديل <i class="fa fa-pencil"></i></button>
+              &nbsp;
+              <button  class="btn btn-danger" (click)="onDeleteResource(p['_links'].self.href)">حذف <i class="fa fa-remove"></i></button>
+            </td>
+            <td>{{p.designation}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul *ngIf="pages" class="pagination">
+      <li [ngClass]="i==currentPage ? 'page-item active' : 'page-item'" *ngFor="let p of pages;let i = index">
+          <a class="clickable page-link" (click)="onPageResources(i)">{{i}}</a>
+      </li>
+  </ul>
+
+</div>

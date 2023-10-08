@@ -19,20 +19,17 @@ selectedDistrict
     getReources(){
       this.myService.getResourceAll('districts').subscribe(data=>{
         this.districts = data['_embedded'].districts
-        console.log(this.districts)
+        console.log(this.districts,"haghagag")
     
     })
     }
     ngOnInit(): void {
-
       this.getReources()
-      this.url = this.myService.host+'/annexes/'+this.activatedRoute.snapshot.params['id']
- 
+      this.url = atob(this.activatedRoute.snapshot.params['id'])
      this.myService.getOneResource(this.url).subscribe(data=>{
-       console.log(this.url,"888888888888888888888888888888")
        this.currentResource = data;
         this.getId(this.currentResource._links.district.href)
-       console.log(this.currentResource,",,,,,,,,,,,,,,,,,,")
+        console.log(this.currentResource,"ezezez")
      },err=>{
        console.log(err)
      })

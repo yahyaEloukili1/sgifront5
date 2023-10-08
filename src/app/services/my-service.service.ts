@@ -7,73 +7,54 @@ import { saveAs } from 'file-saver';
 })
 export class MyServiceService {
   host= 'http://localhost:8087'
-  // host ='//10.39.6.25:8088'
   jwtToken = null;
  constructor(private http: HttpClient) { }
 
  getResourceAll(resource: String):Observable<any[]>{
-   if(this.jwtToken ==null)
-   this.loadToken()
    return this.http.get<any[]>(`${this.host}/${resource}?size=10000`);
 }
 
 getResourceAll2(resource: String):Observable<any[]>{
-  if(this.jwtToken ==null)
-  this.loadToken()
+
   return this.http.get<any[]>(`${this.host}/${resource}`);
 }
 getResourceAll3(resource: String):Observable<any[]>{
-  if(this.jwtToken ==null)
-  this.loadToken()
+
   return this.http.get<any[]>(`${this.host}/allAAL
   `);
 }
- getResource(resource: String,page:number,size:number):Observable<any[]>{ if(this.jwtToken ==null)
-   this.loadToken()
+ getResource(resource: String,page:number,size:number):Observable<any[]>{ 
      return this.http.get<any[]>(`${this.host}/${resource}?page=${page}&size=${size}`);
  }
 
- getLast():Observable<any[]>{ if(this.jwtToken ==null)
-  this.loadToken()
+ getLast():Observable<any[]>{ 
     return this.http.get<any[]>(`${this.host}/getLast`);
 }
 
- addResource(resource: string,value:any):Observable<any>{ if(this.jwtToken ==null)
-   this.loadToken()
+ addResource(resource: string,value:any):Observable<any>{ 
    return this.http.post<any>(`${this.host}/${resource}`,value);
 }
 
- getResourceByKeyword(resource: String,page:number,size:number,mc:string,source:string):Observable<any[]>{ if(this.jwtToken ==null)
-   this.loadToken()
-   console.log(`${this.host}/${resource}/search/by${source}Page?mc=${mc}&page=${page}&size=${size}`,"aaaaaaaaaaaaaaaaaaaaa")
-   return this.http.get<any[]>(`${this.host}/${resource}/search/by${source}Page?mc=${mc}&page=${page}&size=${size}`);
-
-}
-
-getResourceByKeywordNoPage(resource: String,size:number,mc:string,source:string):Observable<any[]>{ if(this.jwtToken ==null)
- this.loadToken()
- return this.http.get<any[]>(`${this.host}/${resource}/search/by${source}Page?mc=${mc}&size=${size}`);
+getResourceByKeyword(resource: String,page:number,size:number,mc:string,source:string):Observable<any[]>{ 
+  return this.http.get<any[]>(`${this.host}/${resource}/search/by${source}Page?mc=${mc}&page=${page}&size=${size}`);
 }
 
 
-deleteResource(resource:string,url:string){ if(this.jwtToken ==null)
- this.loadToken()
+
+deleteResource(resource:string,url:string){
 return this.http.delete(url);
 }
-deleteResourceById(url:string){ if(this.jwtToken ==null)
-  this.loadToken()
+deleteResourceById(url:string){ 
  return this.http.delete(url);
  }
- deleteResourceById2(url:string){ if(this.jwtToken ==null)
-  this.loadToken()
+ deleteResourceById2(url:string){ 
  return this.http.delete(url);
  }
-getOneResource(url:string):Observable<any>{ if(this.jwtToken ==null)
- this.loadToken()
+getOneResource(url:string):Observable<any>{
 return this.http.get<any>(url)
 }
 getOneResource3(url: string, params: any): Observable<any> {
-  this.loadToken()
+ 
   const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     params: new HttpParams({ fromObject: params }) // Convert params to HttpParams
@@ -84,17 +65,14 @@ getOneResource3(url: string, params: any): Observable<any> {
 
 
 
-getOneResourceById(resource:string,id:number):Observable<any>{ if(this.jwtToken ==null)
- this.loadToken()
+getOneResourceById(resource:string,id:number):Observable<any>{
  return this.http.get<any>(`${this.host}/${resource}/${id}`)
 }
 
 
 
 
-updateResource(url:string,data:any){ if(this.jwtToken ==null)
- this.loadToken()
- console.log(url)
+updateResource(url:string,data:any){
  return this.http.patch(url,data)
 }
 login(user){ 
@@ -121,16 +99,6 @@ uploadFile1(format: string) {
   });
 }
 
-// uploadFileWithData( data: any) {
-//   const url = `${this.host}/report4/`;
-  
-//   // Send a POST request with data in the request body
-//   return this.http.post(url, data, {
-//     responseType: 'blob'
-//   }).subscribe((blob: Blob) => {
-//     saveAs(blob, `report.pdf`);
-//   });
-// }
 
 uploadFileWithData(reportTitle: string, data: any) {
   const url = `${this.host}/report4`;
@@ -172,13 +140,6 @@ getAllBenificiairesGroupedByCin(resource): Observable<any> {
     mergeMap(group => group.pipe(toArray()))
   );
 }
-
-
-// uploadFile1(){
-//   return this.http.get(this.host+'/report/pdf/')
-// }
-
-
 
 
 logout(){

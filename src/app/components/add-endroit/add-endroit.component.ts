@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { MyServiceService } from 'src/app/services/my-service.service';
 
 @Component({
-  selector: 'app-add-benificiare',
-  templateUrl: './add-benificiare.component.html',
-  styleUrls: ['./add-benificiare.component.css']
+  selector: 'app-add-endroit',
+  templateUrl: './add-endroit.component.html',
+  styleUrls: ['./add-endroit.component.css']
 })
-export class AddBenificiareComponent implements OnInit {
+export class AddEndroitComponent implements OnInit {
 
   
   ajoute = true
@@ -140,7 +140,7 @@ if (
   
 }
   gotoList(){
-    this.router.navigateByUrl('sgi/benificiaires2');
+    this.router.navigateByUrl('sgi/endroits');
   }
   reset(f:NgForm){
 f.reset()

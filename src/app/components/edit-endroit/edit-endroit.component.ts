@@ -4,11 +4,11 @@ import { get } from 'http';
 import { MyServiceService } from 'src/app/services/my-service.service';
 
 @Component({
-  selector: 'app-edit-benificiare',
-  templateUrl: './edit-benificiare.component.html',
-  styleUrls: ['./edit-benificiare.component.css']
+  selector: 'app-edit-endroit',
+  templateUrl: './edit-endroit.component.html',
+  styleUrls: ['./edit-endroit.component.css']
 })
-export class EditBenificiareComponent implements OnInit {
+export class EditEndroitComponent implements OnInit {
 
   districts
   district
@@ -162,7 +162,7 @@ async onUpdateResource(value: any) {
 
 
      gotoList(){
-       this.router.navigateByUrl('sgi/benificiaires2');
+       this.router.navigateByUrl('sgi/endroits');
      }
   
   }

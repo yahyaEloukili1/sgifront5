@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FichesComponent } from './fiches.component';
+import { EditEndroitComponent } from './edit-endroit.component';
 
-describe('FichesComponent', () => {
-  let component: FichesComponent;
-  let fixture: ComponentFixture<FichesComponent>;
+describe('EditEndroitComponent', () => {
+  let component: EditEndroitComponent;
+  let fixture: ComponentFixture<EditEndroitComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FichesComponent ]
+      declarations: [ EditEndroitComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FichesComponent);
+    fixture = TestBed.createComponent(EditEndroitComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

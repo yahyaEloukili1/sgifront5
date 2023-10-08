@@ -6,11 +6,11 @@ import { MyServiceService } from 'src/app/services/my-service.service';
 import * as L from 'leaflet';
 
 @Component({
-  selector: 'app-benificiares2',
-  templateUrl: './benificiares2.component.html',
-  styleUrls: ['./benificiares2.component.css']
+  selector: 'app-endroits',
+  templateUrl: './endroits.component.html',
+  styleUrls: ['./endroits.component.css']
 })
-export class Benificiares2Component implements OnInit {
+export class EndroitsComponent implements OnInit {
   designation
 selectedAnnexe =0
 annexes
@@ -296,7 +296,7 @@ if (element.categorie.id == 1) {
 }
 
 addResource(){
-    this.router.navigateByUrl("sgi/addBenificiare")
+    this.router.navigateByUrl("sgi/addEndroit")
 
 }
 onDeleteResource(id:string){
@@ -315,7 +315,7 @@ this.designation = ""
  
 }
 onEditResource(id:any){
-  this.router.navigateByUrl("/sgi/editBenificiaire/"+id)
+  this.router.navigateByUrl("/sgi/editEndroit/"+id)
 } 
 
 

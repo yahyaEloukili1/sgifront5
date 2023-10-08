@@ -5,7 +5,9 @@
         </button>
       </div>
     <div class="card card-default  mx-auto">
-      
+        <div class="card-header" style="display: block;text-align: right;">
+            تبديل الفئة
+        </div>
         <div class="card-body">
             <form #f="ngForm" (ngSubmit)="onUpdateAxe(f.value)" *ngIf="currentResource">
                 <div class="row">

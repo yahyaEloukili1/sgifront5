@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddBenificiareComponent } from './add-benificiare.component';
+import { AddEndroitComponent } from './add-endroit.component';
 
-describe('AddBenificiareComponent', () => {
-  let component: AddBenificiareComponent;
-  let fixture: ComponentFixture<AddBenificiareComponent>;
+describe('AddEndroitComponent', () => {
+  let component: AddEndroitComponent;
+  let fixture: ComponentFixture<AddEndroitComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddBenificiareComponent ]
+      declarations: [ AddEndroitComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddBenificiareComponent);
+    fixture = TestBed.createComponent(AddEndroitComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

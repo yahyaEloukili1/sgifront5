@@ -5,7 +5,10 @@
     <div class="container">
       <h2 style="text-align: center;color: white;margin-left: 40%;" *ngIf="!pdiService.jwtToken">برنامج تدبير المواقع</h2>
       <a class="nav-link">
-        <button (click)="logout()" *ngIf="pdiService.jwtToken" class="btn btn-danger">الخروج</button>
+        <button (click)="logout()" *ngIf="pdiService.jwtToken" class="btn btn-danger"> 
+          <i class="fa fa-arrow-circle-left"></i>
+          الخروج
+        </button>
       </a>
    
     
@@ -21,14 +24,13 @@
          
 
           <li class="nav-item" *ngIf="pdiService.jwtToken">
-            <a class="nav-link" [routerLink]="['sgi/benificiaires2']" [routerLinkActive]="['is-active']">المواقع</a>
-          </li>
-  
-          <li class="nav-item" *ngIf="pdiService.jwtToken">
-            <a class="nav-link" [routerLink]="['sgi/districts']" [routerLinkActive]="['is-active']">الدوائر</a>
+            <a class="nav-link" [routerLink]="['sgi/endroits']" [routerLinkActive]="['is-active']">المواقع</a>
           </li>
           <li class="nav-item" *ngIf="pdiService.jwtToken">
             <a class="nav-link" [routerLink]="['sgi/annexes']" [routerLinkActive]="['is-active']">الملحقات</a>
+          </li>
+          <li class="nav-item" *ngIf="pdiService.jwtToken">
+            <a class="nav-link" [routerLink]="['sgi/districts']" [routerLinkActive]="['is-active']">الدوائر</a>
           </li>
           <li class="nav-item" *ngIf="pdiService.jwtToken">
             <a class="nav-link" [routerLink]="['sgi/categories']" [routerLinkActive]="['is-active']">الفئات</a>
@@ -60,3 +62,9 @@
   <div class="mt-5 main-content" > <!-- Add a margin-bottom -->
     <router-outlet> </router-outlet>
   </div>
+  <div class="footer bg-dark" style="color: white; text-align: center; margin-top: 20px; padding: 10px; bottom: 0; width: 100%;">
+  
+    <p>By Yahya El Oukili - DSIT Laayoune &copy; 2023. All Rights Reserved.</p>
+  
+  </div>
+  

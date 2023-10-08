@@ -16,16 +16,10 @@ import { AddAnnexeComponent } from './components/add-annexe/add-annexe.component
 import { CategoriesComponent } from './components/categories/categories.component';
 import { AddCategorieComponent } from './components/add-categorie/add-categorie.component';
 import { EditCategorieComponent } from './components/edit-categorie/edit-categorie.component';
-import { BenificiaresComponent } from './components/benificiares/benificiares.component';
-import { AddBenificiareComponent } from './components/add-benificiare/add-benificiare.component';
-import { EditBenificiareComponent } from './components/edit-benificiare/edit-benificiare.component';
-import { DoublonsComponent } from './components/doublons/doublons.component';
-import { Benificiares2Component } from './components/benificiares2/benificiares2.component';
-import { Doublons2Component } from './components/doublons2/doublons2.component';
-import { FichesComponent } from './components/fiches/fiches.component';
-import { AddFicheComponent } from './components/add-fiche/add-fiche.component';
-import { EditFicheComponent } from './components/edit-fiche/edit-fiche.component';
 
+import { AddEndroitComponent } from './components/add-endroit/add-endroit.component';
+import { EditEndroitComponent } from './components/edit-endroit/edit-endroit.component';
+import { EndroitsComponent } from './components/Endroits/endroits.component';
 
 @NgModule({
   declarations: [
@@ -40,15 +34,11 @@ import { EditFicheComponent } from './components/edit-fiche/edit-fiche.component
     CategoriesComponent,
     AddCategorieComponent,
     EditCategorieComponent,
-    BenificiaresComponent,
-    AddBenificiareComponent,
-    EditBenificiareComponent,
-    DoublonsComponent,
-    Benificiares2Component,
-    Doublons2Component,
-    FichesComponent,
-    AddFicheComponent,
-    EditFicheComponent
+
+    AddEndroitComponent,
+    EditEndroitComponent,
+    EndroitsComponent
+
   ],
   imports: [
     BrowserModule,

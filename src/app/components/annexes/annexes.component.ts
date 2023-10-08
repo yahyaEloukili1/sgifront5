@@ -8,39 +8,63 @@ import { MyServiceService } from 'src/app/services/my-service.service';
   styleUrls: ['./annexes.component.css']
 })
 export class AnnexesComponent implements OnInit {
-
-  annexes
+  size:number = 10;
+  currentPage:number = 0;
+  totalPages: number;
+  resources :any[]
+  pages : Array<number>;
+  currentKeyword: string = "";
   constructor(private rnpService: MyServiceService,private router: Router) { }
 
   ngOnInit(): void {
-   this.getReources()
-
+   this.onGetResources()
+  }
+onGetResources(){
+  this.rnpService.getResource("annexes",this.currentPage,this.size).subscribe(data=>{
+   this.resources = data['_embedded'].annexes;
+  this.totalPages = data['page'].totalPages;
+  this.pages = new Array<number>(this.totalPages);
+  },err=>{
+    console.log(err)
+  })
 }
-getReources(){
-  this.rnpService.getResourceAll('annexes').subscribe(data=>{
-    this.annexes = data['_embedded'].annexes
-    console.log(this.annexes)
+onPageResources(i:number){
+  this.currentPage = i;
+ this.searchResources()
+}
+onChercher(form :any){
+  this.currentPage = 0;
+  this.currentKeyword = form.keyword;
+  this.searchResources()
+}
 
-})
+searchResources(){
+
+this.rnpService.getResourceByKeyword("annexes",this.currentPage,this.size,this.currentKeyword,"Annexe").subscribe(data=>{
+  this.resources = data['_embedded'].annexes;
+ this.totalPages = data['page'].totalPages
+ this.pages = new Array<number>(this.totalPages);
+ },err=>{
+   console.log(err) 
+ })
+
 }
 addResource(){
     this.router.navigateByUrl("sgi/addAnnexe")
 
 }
-onDeleteResource(id){
+onDeleteResource(url:string){
   if(confirm('Etes vous sur de vouloir supprimer cette resource ?')){
-  this.rnpService.deleteResourceById(this.rnpService.host+'/annexes/'+id).subscribe(data=>{
- this.getReources()
+  this.rnpService.deleteResource('annexes',url).subscribe(data=>{
+    this.searchResources();
+    this.onGetResources()
   },err=>{
     console.log(err)
   })
   }
-   
- 
 }
-onEditResource(id:any){
- 
-
-  this.router.navigateByUrl("sgi/editAnnexe/"+id)
+onEditResource(p:any){
+  let url = p['_links'].self.href;
+  this.router.navigateByUrl("sgi/editAnnexe/"+btoa(url))
 } 
 }
