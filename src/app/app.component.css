@@ -4,3 +4,12 @@
     height: 100%;
   }
  
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+  
+  .main-content {
+    flex-grow: 1; /* This allows it to grow and take remaining vertical space */
+  }

@@ -11,17 +11,32 @@
             إضافة دائرة جديدة
         </div>
         <div class="card-body">
-        <form #f="ngForm" (ngSubmit)="onSaveAffectation(f)">
-           
-                 
-          
+            <div *ngIf="addedSuccessfully" style="text-align: right;" class="alert alert-success">
+                تمت إضافة الدائرة بنجاح
+              </div>
+             
+        <form #f="ngForm" (ngSubmit)="onSaveAffectation(f)" (keydown.enter)="$event.preventDefault()">
+         
+              
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label  class="control-label" style="display: block;text-align: right;">
                                     : * الدائرة
                                 </label>
-                                <input type="text" name="designation" style="text-align: right;" ngModel class="form-control">
+                                <input 
+                                type="text" 
+                                name="designation" 
+                             ngModel
+                                style="text-align: right;" 
+                              
+                                class="form-control" 
+                              >
+                                
+                            
+                              
+                              
+                              
                             </div> 
                            </div>
                            

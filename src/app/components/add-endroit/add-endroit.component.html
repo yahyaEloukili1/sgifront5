@@ -11,7 +11,10 @@
     إضافة موقع جديد
         </div>
         <div class="card-body">
-        <form #f="ngForm" (ngSubmit)="onSaveAffectation(f)">
+            <div *ngIf="addedSuccessfully" style="text-align: right;" class="alert alert-success">
+                تمت إضافة الموقع بنجاح
+              </div>
+        <form #f="ngForm" (ngSubmit)="onSaveAffectation(f)" (keydown.enter)="$event.preventDefault()">
            
             <div class="row">
                 <div class="col">

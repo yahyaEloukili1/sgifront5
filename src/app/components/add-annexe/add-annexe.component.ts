@@ -12,6 +12,7 @@ export class AddAnnexeComponent implements OnInit {
 
   ajoute = true
   districts
+  addedSuccessfully = false
   constructor(private pdiService: MyServiceService, private router: Router) { }
 
   ngOnInit(): void {
@@ -28,18 +29,21 @@ export class AddAnnexeComponent implements OnInit {
     this.ajoute = false
     f.value.district = `${this.pdiService.host}/districts/${f.value.district}`
     console.log(f.value.district,"jej")
- if(!f.value.designation){
+ if(!f.value.designation || f.value.district ==  `${this.pdiService.host}/districts/`){
   alert(' المرجو ادخال المعلومات'  )
  }
- if(f.value.district ==  `${this.pdiService.host}/districts/`){
-  alert(' المرجو ادخال المعلومات'  )
- }
+
 
  else{
 
   this.pdiService.addResource("annexes",f.value).subscribe(data=>{
    this.ajoute =true
-   alert('لقد تمت إضافة الملحقة بنجاح')
+   this.addedSuccessfully = true
+   setTimeout(() => {
+    this.addedSuccessfully = false;
+  }, 2500); // 3000 milliseconds = 3 seconds
+
+  
     f.reset()
         },err=>{
           console.log(err)

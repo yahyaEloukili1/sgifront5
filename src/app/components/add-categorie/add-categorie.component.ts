@@ -10,6 +10,7 @@ import { MyServiceService } from 'src/app/services/my-service.service';
 })
 export class AddCategorieComponent implements OnInit {
   ajoute = true
+  addedSuccessfully = false
   constructor(private pdiService: MyServiceService, private router: Router) { }
 
   ngOnInit(): void {
@@ -25,7 +26,12 @@ export class AddCategorieComponent implements OnInit {
 
   this.pdiService.addResource("categories",f.value).subscribe(data=>{
    this.ajoute =true
-   alert('لقد تمت إضافة الفئة بنجاح')
+   this.addedSuccessfully = true
+   setTimeout(() => {
+    this.addedSuccessfully = false;
+  }, 2500); // 3000 milliseconds = 3 seconds
+
+  
     f.reset()
         },err=>{
           console.log(err)

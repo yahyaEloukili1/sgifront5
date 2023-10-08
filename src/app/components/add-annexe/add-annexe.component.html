@@ -11,7 +11,11 @@
             إضافة ملحقة جديدة
         </div>
         <div class="card-body">
-        <form #f="ngForm" (ngSubmit)="onSaveAffectation(f)">
+            <div *ngIf="addedSuccessfully" style="text-align: right;" class="alert alert-success">
+                تمت إضافة الملحقة بنجاح
+              </div>
+             
+        <form #f="ngForm" (ngSubmit)="onSaveAffectation(f)" (keydown.enter)="$event.preventDefault()">
            
                  
           

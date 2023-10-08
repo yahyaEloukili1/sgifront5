@@ -15,6 +15,7 @@ export class AddEndroitComponent implements OnInit {
   districts
   annexes
   categories
+  addedSuccessfully = false
   constructor(private pdiService: MyServiceService, private router: Router) { }
 
   ngOnInit(): void {
@@ -66,29 +67,7 @@ this.pdiService.getResourceAll('districts').subscribe(data=>{
           f.value.annexe = `${this.pdiService.host}/annexes/${f.value.annexe}`
           console.log(f.value.annexeName,"jej")
           console.log(f.value.districtName,"jej")
-//        if(!f.value.designation){
-//  alert(' المرجو ادخال المعلومات'  )
-//        }
-    
-//        if(!f.value.adress){
-//  alert(' المرجو ادخال المعلومات'  )
-//        }
-//        if(!f.value.x){
-//         alert(' المرجو ادخال المعلومات'  )
-//               }
-//               if(!f.value.y){
-//                 alert(' المرجو ادخال المعلومات'  )
-//                       }
-                    
-//        if(f.value.district ==  `${this.pdiService.host}/districts/`){
-//  alert(' المرجو ادخال المعلومات'  )
-//        }
-//        if(f.value.categorie ==  `${this.pdiService.host}/categories/`){
-//  alert(' المرجو ادخال المعلومات'  )
-//        }
-//        if(f.value.annexe ==  `${this.pdiService.host}/annexes/`){
-//  alert(' المرجو ادخال المعلومات'  )
-//        }
+
 if (
   !f.value.designation ||
   !f.value.adress ||
@@ -106,7 +85,12 @@ if (
        if(f.value.x && f.value.y && f.value.adress && f.value.designation ){
         this.pdiService.addResource("endroits",f.value).subscribe(data=>{
           this.ajoute =true
-          alert('لقد تمت إضافة الموقع بنجاح')
+          this.addedSuccessfully = true
+          setTimeout(() => {
+           this.addedSuccessfully = false;
+         }, 2500); // 3000 milliseconds = 3 seconds
+       
+         
            f.reset()
                },err=>{
                  console.log(err)

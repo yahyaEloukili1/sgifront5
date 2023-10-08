@@ -9,6 +9,8 @@ import { NgForm } from '@angular/forms';
 })
 export class AddDistrictComponent implements OnInit {
   ajoute = true
+  addedSuccessfully = false
+
   constructor(private pdiService: MyServiceService, private router: Router) { }
 
   ngOnInit(): void {
@@ -16,17 +18,22 @@ export class AddDistrictComponent implements OnInit {
 
   onSaveAffectation(f:NgForm){
     this.ajoute = false
- if(!f.value.designation){
-  alert(' المرجو ادخال المعلومات'  )
- }
+    if (!f.value.designation){
+      alert(' المرجو ادخال المعلومات'  )
+    }
 
  else{
 
   this.pdiService.addResource("districts",f.value).subscribe(data=>{
 
    this.ajoute =true
+   this.addedSuccessfully = true
+   setTimeout(() => {
+    this.addedSuccessfully = false;
+  }, 2500); // 3000 milliseconds = 3 seconds
+
     f.reset()
-    alert('لقد تمت إضافة الدائرة بنجاح')
+  
         },err=>{
           console.log(err)
         })
