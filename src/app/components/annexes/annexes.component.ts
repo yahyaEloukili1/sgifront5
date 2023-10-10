@@ -8,7 +8,7 @@ import { MyServiceService } from 'src/app/services/my-service.service';
   styleUrls: ['./annexes.component.css']
 })
 export class AnnexesComponent implements OnInit {
-  size:number = 7;
+  size:number = 4;
   currentPage:number = 0;
   totalPages: number;
   resources :any[]

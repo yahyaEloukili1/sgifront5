@@ -8,7 +8,7 @@ import { MyServiceService } from 'src/app/services/my-service.service';
   styleUrls: ['./distrits.component.css']
 })
 export class DistritsComponent implements OnInit {
-  size:number = 7;
+  size:number = 4;
   currentPage:number = 0;
   totalPages: number;
   resources :any[]

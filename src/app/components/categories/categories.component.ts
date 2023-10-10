@@ -8,7 +8,7 @@ import { MyServiceService } from 'src/app/services/my-service.service';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-  size:number = 7;
+  size:number = 4;
   currentPage:number = 0;
   totalPages: number;
   resources :any[]
