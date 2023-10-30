@@ -30,7 +30,7 @@
 
 </div>
    
-    <button class="btn btn-primary ml-auto" (click)="addResource()">إضافة موقع <i class="fa fa-plus-circle"></i>
+    <button *ngIf="getConnectedUser()=='sgi'" class="btn btn-primary ml-auto" (click)="addResource()">إضافة موقع <i class="fa fa-plus-circle"></i>
     </button>&nbsp;
     <button  class="btn btn-success" (click)="oupload()">تحميل <i class="fa fa-print"></i></button>
     <!-- <label  class="control-label" style="display: block;text-align: right;">
@@ -38,6 +38,7 @@
   </label> -->
 
   </div>
+  <div id="map" ></div>
   <div class="table-container">
     <table class="table table-bordered table-sm">
         <thead>
@@ -94,7 +95,7 @@
       </tbody>
     </table>
   </div>
-    <div id="map" ></div>
+   
 </div>
 
 

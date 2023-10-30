@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
       this.pdiService.login(f.value).subscribe(resp=>{
         let jwt = resp.headers.get('Authorization')
        this.pdiService.saveToken(jwt);
-        this.router.navigateByUrl("sgi/districts")
+        this.router.navigateByUrl("sgi/endroits")
         console.log(jwt)
         
       },err=>{

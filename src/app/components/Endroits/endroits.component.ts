@@ -243,12 +243,21 @@ async checrher(){
 }
 
 getReources(){
+  if(this.getConnectedUser()=="sgi"){
   this.rnpService.getResourceAll2('endroits2').subscribe(data=>{
-    this.benificiaires = data
-    
+   
+      this.benificiaires = data 
  this.marq(data)
 
 })
+  } else if(this.getConnectedUser()=="aal4"){
+    this.rnpService.getResourceAll2('annexes/'+2+"/endroits").subscribe(data=>{
+   
+      this.benificiaires = data 
+ this.marq(data)
+
+})
+  }
 }
 removeLayer(){
   this.map.eachLayer(layer => {
@@ -385,6 +394,8 @@ this.designation = ""
 onEditResource(id:any){
   this.router.navigateByUrl("/sgi/editEndroit/"+id)
 } 
-
+getConnectedUser(){
+  return JSON.parse(atob(this.rnpService.loadToken().split('.')[1])).sub;
+  }
 
 }

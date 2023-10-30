@@ -26,13 +26,13 @@
             <li class="nav-item" *ngIf="pdiService.jwtToken">
               <a class="nav-link" [routerLink]="['sgi/endroits']" [routerLinkActive]="['is-active']">المواقع</a>
             </li>
-            <li class="nav-item" *ngIf="pdiService.jwtToken">
+              <li class="nav-item" *ngIf="pdiService.jwtToken && getConnectedUser()=='sgi'">
               <a class="nav-link" [routerLink]="['sgi/annexes']" [routerLinkActive]="['is-active']">الملحقات</a>
             </li>
-            <li class="nav-item" *ngIf="pdiService.jwtToken">
+              <li class="nav-item" *ngIf="pdiService.jwtToken && getConnectedUser()=='sgi'">
               <a class="nav-link" [routerLink]="['sgi/districts']" [routerLinkActive]="['is-active']">الدوائر</a>
             </li>
-            <li class="nav-item" *ngIf="pdiService.jwtToken">
+              <li class="nav-item" *ngIf="pdiService.jwtToken && getConnectedUser()=='sgi'">
               <a class="nav-link" [routerLink]="['sgi/categories']" [routerLinkActive]="['is-active']">الفئات</a>
             </li>
             <!-- <li class="nav-item" *ngIf="pdiService.jwtToken">

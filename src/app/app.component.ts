@@ -12,10 +12,14 @@ export class AppComponent {
   token
   constructor(public pdiService: MyServiceService,private router: Router){
     this.met()
+    this.getConnectedUser()
   }
   met(){
    this.token = this.pdiService.loadToken()
    console.log(this.token,"ksksksksksk")
+  }
+  getConnectedUser(){
+  return JSON.parse(atob(this.pdiService.loadToken().split('.')[1])).sub;
   }
   logout(){
     this.pdiService.logout()
