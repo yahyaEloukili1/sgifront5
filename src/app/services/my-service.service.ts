@@ -101,6 +101,7 @@ uploadFile1(format: string) {
 
 
 uploadFileWithData(reportTitle: string, data: any) {
+
   const url = `${this.host}/report4`;
 
   const body = {
@@ -112,8 +113,12 @@ uploadFileWithData(reportTitle: string, data: any) {
   return this.http.post(url, body, {
     responseType: 'blob'
   }).subscribe((blob: Blob) => {
+   
     saveAs(blob, `report.pdf`);
-  });
+    
+    alert('تم التحميل بنجاح')
+  })                                                                               
+  
 }
 
 

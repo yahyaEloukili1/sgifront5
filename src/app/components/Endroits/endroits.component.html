@@ -12,18 +12,19 @@
   <option value="0">-</option>
   <option *ngFor="let categorie of categories"  [value]="categorie.id">{{categorie.designation}}</option>
 </select>
-<-- الدائرة -->
-<select class="form-control-md" name="district" *ngIf="districts" [(ngModel)]="selectedDistrict" (ngModelChange)="onRowClickDistrict($event)"> 
+<span *ngIf="getConnectedUser()=='sgi'"><-- الدائرة --></span>
+<select  class="form-control-md" name="district" *ngIf="districts && getConnectedUser()=='sgi'" [(ngModel)]="selectedDistrict" (ngModelChange)="onRowClickDistrict($event)"> 
   <option value="0">-</option>
   <option *ngFor="let district of districts"  [value]="district.id">{{district.designation}}</option>
 </select>
 &nbsp;&nbsp;
- الملحقة -->
+ <span *ngIf="getConnectedUser()=='sgi'">لملحقة --></span>
 
- <select class="form-control-md" name="annexe" *ngIf="annexes" [(ngModel)]="selectedAnnexe" (ngModelChange)="onRowClickAnnexe($event)"> 
+ <select class="form-control-md" name="annexe" *ngIf="annexes && getConnectedUser()=='sgi'" [(ngModel)]="selectedAnnexe" (ngModelChange)="onRowClickAnnexe($event)"> 
    <option value="0">-</option>
    <option *ngFor="let district of annexes"  [value]="district.id">{{district.designation}}</option>
  </select>
+ 
  &nbsp;&nbsp;
 
 الفئة 
@@ -43,7 +44,7 @@
     <table class="table table-bordered table-sm">
         <thead>
         <tr>
-          <th style="width: 10%;">Actions</th>
+          <th style="width: 10%;"  *ngIf="getConnectedUser()=='sgi'">Actions</th>
           <!-- <th style="width: 20%;">Actions</th> -->
           <th >الاحذاثيات</th>
            <th >ملاحضات</th>
@@ -65,10 +66,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let p of benificiaires; let i = index">
-            <td>
-              <button  class="btn btn-success" (click)="onEditResource(p.id)"> <i class="fa fa-pencil"></i></button>
+            <td  *ngIf="getConnectedUser()=='sgi'">
+              <button  class="btn btn-success"  *ngIf="getConnectedUser()=='sgi'" (click)="onEditResource(p.id)"> <i class="fa fa-pencil"></i></button>
               &nbsp;
-              <button  class="btn btn-danger" (click)="onDeleteResource(p.id)"> <i class="fa fa-remove"></i></button>
+              <button  class="btn btn-danger"  *ngIf="getConnectedUser()=='sgi'" (click)="onDeleteResource(p.id)"> <i class="fa fa-remove"></i></button>
               
             </td>
             <td>({{p.x}},{{p.y}})</td>

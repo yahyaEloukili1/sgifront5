@@ -19,6 +19,7 @@ export class AppComponent {
    console.log(this.token,"ksksksksksk")
   }
   getConnectedUser(){
+    if(this.pdiService.loadToken())
   return JSON.parse(atob(this.pdiService.loadToken().split('.')[1])).sub;
   }
   logout(){

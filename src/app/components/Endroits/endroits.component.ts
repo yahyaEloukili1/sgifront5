@@ -19,6 +19,7 @@ districts
   benificiaires
   selectedCategorie =0
   selectedDistrict=0
+  annexeActuel
   constructor(private rnpService: MyServiceService,private router: Router) { }
   private map;
 
@@ -53,8 +54,8 @@ this.initMap()
 }
 async oupload(){
   if((!this.selectedAnnexe|| this.selectedAnnexe==0) && (!this.selectedCategorie|| this.selectedCategorie==0)&&(!this.selectedDistrict|| this.selectedDistrict==0)&&!this.designation)
-  {this.rnpService.uploadFileWithData("لائحة المواقع",this.benificiaires)
-// alert('تم التحميل بنجاح')
+  {console.log(this.rnpService.uploadFileWithData("لائحة المواقع",this.benificiaires))
+
 }
   else if((this.selectedAnnexe && this.selectedAnnexe!==0)&& (!this.selectedCategorie|| this.selectedCategorie==0)&&(!this.selectedDistrict|| this.selectedDistrict==0)) {
     {
@@ -194,33 +195,39 @@ if(this.selectedDistrict!=0){
  
 }
 onRowClickCategorie(e){
+  let a;
+  if(this.getConnectedUser()=="sgi"){
+     a= this.selectedAnnexe == 0 ? undefined : this.selectedAnnexe;
+    }
+    else{
+       a = parseInt(this.getConnectedUser().charAt(3))-2
+    }
+ this.selectedCategorie = e
+ let c,d;
+ // Convert 0 to undefined
+
+ c= this.selectedCategorie == 0 ? undefined : this.selectedCategorie;
+d = this.selectedDistrict == 0 ? undefined : this.selectedDistrict;
+
+ let url = `${this.rnpService.host}/endroits/search/findByDistrictAndAnnexeAndCategorieId?`;
  
-  this.selectedCategorie = e
-  let a,c,d;
-  // Convert 0 to undefined
- a= this.selectedAnnexe == 0 ? undefined : this.selectedAnnexe;
-  c= this.selectedCategorie == 0 ? undefined : this.selectedCategorie;
- d = this.selectedDistrict == 0 ? undefined : this.selectedDistrict;
+ if (d !== undefined) {
+   url += `districtId=${d}&`;
+ }
 
-  let url = `${this.rnpService.host}/endroits/search/findByDistrictAndAnnexeAndCategorieId?`;
-  
-  if (d !== undefined) {
-    url += `districtId=${d}&`;
-  }
+ if (a !== undefined) {
+   url += `annexeId=${a}&`;
+ }
 
-  if (a !== undefined) {
-    url += `annexeId=${a}&`;
-  }
+ if (c !== undefined) {
+   url += `categorieId=${c}`;
+ }
 
-  if (c !== undefined) {
-    url += `categorieId=${c}`;
-  }
-
-  this.rnpService.getOneResource(url).subscribe(data => {
-    this.benificiaires = data['_embedded'].endroits;
-    this.designation="";
-    this.marq2(this.benificiaires);
-  });
+ this.rnpService.getOneResource(url).subscribe(data => {
+   this.benificiaires = data['_embedded'].endroits;
+   this.designation="";
+   this.marq2(this.benificiaires);
+ });
 }
 
 
@@ -244,21 +251,24 @@ async checrher(){
 
 getReources(){
   if(this.getConnectedUser()=="sgi"){
-  this.rnpService.getResourceAll2('endroits2').subscribe(data=>{
+  this.rnpService.getResourceAll2('endroits').subscribe(data=>{
    
-      this.benificiaires = data 
- this.marq(data)
+      this.benificiaires = data['_embedded'].endroits  
+ this.marq(this.benificiaires)
 
 })
-  } else if(this.getConnectedUser()=="aal4"){
-    this.rnpService.getResourceAll2('annexes/'+2+"/endroits").subscribe(data=>{
-   
-      this.benificiaires = data 
- this.marq(data)
+  } else if(this.getConnectedUser().startsWith("aal")){
+    let a = parseInt(this.getConnectedUser().charAt(3))-2
+    this.rnpService.getResourceAll2('annexes/'+a+"/endroits").subscribe(data=>{
+   this.annexeActuel = this.getConnectedUser()
+this.benificiaires= data['_embedded'].endroits 
+console.log(this.getConnectedUser(),"8888")
+ this.marq(this.benificiaires)
 
 })
   }
 }
+
 removeLayer(){
   this.map.eachLayer(layer => {
     if (layer instanceof L.Marker) {
