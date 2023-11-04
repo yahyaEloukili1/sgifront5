@@ -8,19 +8,19 @@
 
 
 
-  <select class="form-control-md"  name="categorie" *ngIf="categories" [(ngModel)]="selectedCategorie" (ngModelChange)="onRowClickCategorie($event)"> 
+  <select class="form-control-md" style="width: 90px;text-align: right;" name="categorie" *ngIf="categories" [(ngModel)]="selectedCategorie" (ngModelChange)="onRowClickCategorie($event)"> 
   <option value="0">-</option>
   <option *ngFor="let categorie of categories"  [value]="categorie.id">{{categorie.designation}}</option>
 </select>
-<span *ngIf="getConnectedUser()=='sgi'"><-- الدائرة --></span>
-<select  class="form-control-md" name="district" *ngIf="districts && getConnectedUser()=='sgi'" [(ngModel)]="selectedDistrict" (ngModelChange)="onRowClickDistrict($event)"> 
+<span *ngIf="getConnectedUser()=='sgi'" ><-- الدائرة --></span>
+<select  class="form-control-md" style="width: 90px;text-align: right;"  name="district" *ngIf="districts && getConnectedUser()=='sgi'" [(ngModel)]="selectedDistrict" (ngModelChange)="onRowClickDistrict($event)"> 
   <option value="0">-</option>
   <option *ngFor="let district of districts"  [value]="district.id">{{district.designation}}</option>
 </select>
 &nbsp;&nbsp;
  <span *ngIf="getConnectedUser()=='sgi'">لملحقة --></span>
 
- <select class="form-control-md" name="annexe" *ngIf="annexes && getConnectedUser()=='sgi'" [(ngModel)]="selectedAnnexe" (ngModelChange)="onRowClickAnnexe($event)"> 
+ <select class="form-control-md" style="width: 90px;text-align: right;" name="annexe" *ngIf="annexes && getConnectedUser()=='sgi'" [(ngModel)]="selectedAnnexe" (ngModelChange)="onRowClickAnnexe($event)"> 
    <option value="0">-</option>
    <option *ngFor="let district of annexes"  [value]="district.id">{{district.designation}}</option>
  </select>
@@ -39,7 +39,7 @@
   </label> -->
 
   </div>
-  <div id="map" ></div>
+  <div id="map" class="mb-2" ></div>
   <div class="table-container">
     <table class="table table-bordered table-sm">
         <thead>

@@ -8,12 +8,16 @@ import { MyServiceService } from "./services/my-service.service";
 export class AuthGuard implements CanActivate {
   constructor(private pdi: MyServiceService,private router: Router){}
   canActivate(){
-    if(this.pdi.loggedIn()){
+    if(this.pdi.loggedIn() ){
       return true
     }
     else{
       this.router.navigateByUrl('sgi/login')
       return false
     }
+  }
+  getConnectedUser(){
+    if(this.pdi.loadToken())
+  return JSON.parse(atob(this.pdi.loadToken().split('.')[1])).sub;
   }
 }

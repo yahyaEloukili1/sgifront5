@@ -1,8 +1,10 @@
-tr,th,td{
+
+.table.table-bordered.table-sm th,
+.table.table-bordered.table-sm td {
     text-align: center;
     vertical-align: middle;
+    border: 1px solid black !important; /* Add !important to prioritize your styles */
 }
-
   
   #map {
     height: 710px;

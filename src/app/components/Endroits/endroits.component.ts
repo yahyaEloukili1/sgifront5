@@ -199,9 +199,20 @@ onRowClickCategorie(e){
   if(this.getConnectedUser()=="sgi"){
      a= this.selectedAnnexe == 0 ? undefined : this.selectedAnnexe;
     }
-    else{
-       a = parseInt(this.getConnectedUser().charAt(3))-2
+    else if(this.getConnectedUser().startsWith("aal") && this.getConnectedUser()!="aal1 almarsa" && this.getConnectedUser()!="aal2 almarsa"){
+       a = parseInt(this.getConnectedUser().charAt(3))
+    } else if(this.getConnectedUser()=="aal1 almarsa"){
+      a = 25
+    }else if(this.getConnectedUser()=="aal2 almarsa"){
+      a = 26
+    }else if(this.getConnectedUser()=="boucraa"){
+      a = 22
+    }else if(this.getConnectedUser()=="Dcheira"){
+      a = 23
+    }else if(this.getConnectedUser()=="foumElOued"){
+      a = 24
     }
+    
  this.selectedCategorie = e
  let c,d;
  // Convert 0 to undefined
@@ -251,22 +262,39 @@ async checrher(){
 
 getReources(){
   if(this.getConnectedUser()=="sgi"){
-  this.rnpService.getResourceAll2('endroits').subscribe(data=>{
+  this.rnpService.getResourceAll('endroits').subscribe(data=>{
    
       this.benificiaires = data['_embedded'].endroits  
  this.marq(this.benificiaires)
 
 })
-  } else if(this.getConnectedUser().startsWith("aal")){
-    let a = parseInt(this.getConnectedUser().charAt(3))-2
-    this.rnpService.getResourceAll2('annexes/'+a+"/endroits").subscribe(data=>{
-   this.annexeActuel = this.getConnectedUser()
-this.benificiaires= data['_embedded'].endroits 
-console.log(this.getConnectedUser(),"8888")
- this.marq(this.benificiaires)
+  } else{
+    let a;
+    if(this.getConnectedUser().startsWith("aal") && this.getConnectedUser()!="aal1 almarsa" && this.getConnectedUser()!="aal2 almarsa"){
+       a = parseInt(this.getConnectedUser().charAt(3))
+    }else if(this.getConnectedUser()=="aal1 almarsa"){
+      a = 25
+    }else if(this.getConnectedUser()=="aal2 almarsa"){
+      a = 26
+    }else if(this.getConnectedUser()=="boucraa"){
+      a = 22
+    }else if(this.getConnectedUser()=="Dcheira"){
+      a = 23
+    }else if(this.getConnectedUser()=="foumElOued"){
+      a = 24
+    }
 
-})
+
+
+    this.rnpService.getResourceAll2('annexes/'+a+"/endroits").subscribe(data=>{
+      this.annexeActuel = this.getConnectedUser()
+   this.benificiaires= data['_embedded'].endroits 
+   console.log(a,"8888")
+    this.marq(this.benificiaires)
+   
+   })
   }
+   
 }
 
 removeLayer(){
